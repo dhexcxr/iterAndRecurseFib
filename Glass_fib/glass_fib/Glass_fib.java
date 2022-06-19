@@ -87,6 +87,7 @@ public class Glass_fib extends Application {
 		
 		for (int i = 0; i <= iterationsToCalc; i++ ) {
 			long recursiveStartTime = System.nanoTime();
+			fibRecursive(i);
 			long recursiveEndTime = System.nanoTime();
 			recursiveTimes.add(recursiveEndTime - recursiveStartTime);
 		}
@@ -100,6 +101,7 @@ public class Glass_fib extends Application {
 		
 		for (int i = 0; i <= iterationsToCalc; i++ ) {
 			long iterativeStartTime = System.nanoTime();
+			fibIterative(i);
 			long iterativeEndTime = System.nanoTime();
 			iterativeTimes.add(iterativeEndTime - iterativeStartTime);
 		}
