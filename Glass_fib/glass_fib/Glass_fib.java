@@ -131,7 +131,7 @@ public class Glass_fib extends Application {
 		
 		List<Long> iterativeTimes = calculateIteratice();
 		Series<Integer, Long> iterativeSeries = new XYChart.Series<>();
-		iterativeSeries.setName("Recursive Fibonnaci Calculation Times");
+		iterativeSeries.setName("Iterative Fibonnaci Calculation Times");
 		for (int i = 0; i < iterativeTimes .size(); i++) {
 			iterativeSeries.getData().add(new Data<Integer, Long>(i, iterativeTimes .get(i)));
 		}
