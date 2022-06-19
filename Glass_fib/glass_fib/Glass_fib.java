@@ -3,7 +3,11 @@ package glass_fib;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Glass_fib {
+import javafx.application.Application;
+import javafx.scene.chart.NumberAxis;
+import javafx.stage.Stage;
+
+public class Glass_fib extends Application {
 
 	/**
 	 * Used to setup timers and measure performance of fibonacci methods.
@@ -13,7 +17,7 @@ public class Glass_fib {
 			
 	public static void main(String[] args) {
 		
-		int iterationsToCalc = 45;
+		int iterationsToCalc = 42;
 		
 		List<Long> recursiveTimes = new ArrayList<>();
 		List<Long> iterativeTimes = new ArrayList<>();
@@ -91,6 +95,17 @@ public class Glass_fib {
 		}
 		
 		return first;
+	}
+
+	
+	/**
+	 * create the JavaFX window
+	 * 
+	 */
+	@Override
+	public void start(Stage arg0) throws Exception {
+		
+		
 	}
 
 }
