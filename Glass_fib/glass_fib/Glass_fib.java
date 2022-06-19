@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.application.Application;
+import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Data;
+import javafx.scene.chart.XYChart.Series;
 import javafx.stage.Stage;
 
 public class Glass_fib extends Application {
@@ -111,7 +115,29 @@ public class Glass_fib extends Application {
 	@Override
 	public void start(Stage arg0) throws Exception {
 		
+		// define graph axis
+		final NumberAxis xAxis = new NumberAxis(0, 42, 1);
+		final NumberAxis yAxis = new NumberAxis(10000, 900000000, 10000);
+		xAxis.setLabel("n-th Fibonacci number");
+		yAxis.setLabel("Time in nanoseconds");
 		
+		// build the data
+		List<Long> recursiveTimes = calculateRecursive();
+		Series<Integer, Long> recursiveSeries = new XYChart.Series<>();
+		recursiveSeries.setName("Recursive Fibonnaci Calculation Times");
+		for (int i = 0; i < recursiveTimes.size(); i++) {
+			recursiveSeries.getData().add(new Data<Integer, Long>(i, recursiveTimes.get(i)));
+		}
+		
+		List<Long> iterativeTimes = calculateIteratice();
+		Series<Integer, Long> iterativeSeries = new XYChart.Series<>();
+		iterativeSeries.setName("Recursive Fibonnaci Calculation Times");
+		for (int i = 0; i < iterativeTimes .size(); i++) {
+			iterativeSeries.getData().add(new Data<Integer, Long>(i, iterativeTimes .get(i)));
+		}
+		
+		// build the line graph
+		LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
 	}
 
 }
