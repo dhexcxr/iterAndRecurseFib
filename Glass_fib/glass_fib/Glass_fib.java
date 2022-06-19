@@ -1,3 +1,9 @@
+//Author Name: M. Corey Glass
+//Date: 6/19/2022
+//Program Name: Glass_fib
+//Purpose: time how long is takes to calculate Fibonacci numbers via a recursive algorithm
+		// and an iterative algorithm and display a graph of the results 
+
 package glass_fib;
 
 import java.util.ArrayList;
@@ -73,6 +79,8 @@ public class Glass_fib extends Application {
 	}
 	
 	public static List<Long> calculateRecursive() {
+		// calculate Fibonacci numbers from the 0-th element to the ITERATIONS_TO_CALC-th element
+		// using a recursive algorithm
 		List<Long> recursiveTimes = new ArrayList<>();
 		
 		for (int i = 0; i <= ITERATIONS_TO_CALC; i++ ) {
@@ -85,6 +93,8 @@ public class Glass_fib extends Application {
 	}
 	
 	public static List<Long> calculateIterative() {
+		// calculate Fibonacci numbers from the 0-th element to the ITERATIONS_TO_CALC-th element
+		// using an iterative algorithm
 		List<Long> iterativeTimes = new ArrayList<>();
 		
 		for (int i = 0; i <= ITERATIONS_TO_CALC; i++ ) {
@@ -101,9 +111,11 @@ public class Glass_fib extends Application {
 	/**
 	 * create the JavaFX window
 	 * 
+	 * @param stage - default stage parameter
+	 * 
 	 */
 	@Override
-	public void start(Stage arg0) throws Exception {
+	public void start(Stage stage) throws Exception {
 				
 		// build the data
 		List<Long> recursiveTimes = calculateRecursive();
@@ -151,8 +163,8 @@ public class Glass_fib extends Application {
 		pane.setHgap(4);
 		pane.setPrefWidth(1024);
 		Scene scene = new Scene(pane);
-		arg0.setScene(scene);
-		arg0.setTitle("Fibonacci Calculation Times");
-		arg0.show();
+		stage.setScene(scene);
+		stage.setTitle("Fibonacci Calculation Times");
+		stage.show();
 	}
 }
