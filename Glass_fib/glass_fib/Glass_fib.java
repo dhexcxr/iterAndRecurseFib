@@ -15,29 +15,8 @@ public class Glass_fib extends Application {
 	 * @param args - program arguments (not used)
 	 */
 			
-	public static void main(String[] args) {
-		
-		int iterationsToCalc = 42;
-		
-		List<Long> recursiveTimes = new ArrayList<>();
-		List<Long> iterativeTimes = new ArrayList<>();
-		
-		for (int i = 0; i <= iterationsToCalc; i++ ) {
-			long recursiveStartTime = System.nanoTime();
-			System.out.println("i = " + i + ", recursive sequence num = " + fibRecursive(i));
-			long recursiveEndTime = System.nanoTime();
-			System.out.println("Total Recursive time - " + (recursiveEndTime - recursiveStartTime) + " nanoseconds");
-			recursiveTimes.add(recursiveEndTime - recursiveStartTime);
-			
-			long iterativeStartTime = System.nanoTime();
-			System.out.println("i = " + i + ", iterative sequence num = " + fibIterative(i));
-			long iterativeEndTime = System.nanoTime();
-			System.out.println("Total Iterative time - " + (iterativeEndTime - iterativeStartTime) + " nanoseconds");
-			iterativeTimes.add(iterativeEndTime - iterativeStartTime);
-			System.out.println();
-		}
-		
-
+	public static void main(String[] args) {		
+		launch(args);
 	}
 	
 	/**
@@ -95,6 +74,33 @@ public class Glass_fib extends Application {
 		}
 		
 		return first;
+	}
+	
+	public static List<Long> calculateRecursive() {
+		int iterationsToCalc = 42;
+		
+		List<Long> recursiveTimes = new ArrayList<>();
+		
+		for (int i = 0; i <= iterationsToCalc; i++ ) {
+			long recursiveStartTime = System.nanoTime();
+			long recursiveEndTime = System.nanoTime();
+			recursiveTimes.add(recursiveEndTime - recursiveStartTime);
+		}
+		return recursiveTimes;
+	}
+	
+	public static List<Long> calculateIteratice() {
+		int iterationsToCalc = 42;
+		
+		List<Long> iterativeTimes = new ArrayList<>();
+		
+		for (int i = 0; i <= iterationsToCalc; i++ ) {
+			long iterativeStartTime = System.nanoTime();
+			long iterativeEndTime = System.nanoTime();
+			iterativeTimes.add(iterativeEndTime - iterativeStartTime);
+		}
+		
+		return iterativeTimes;
 	}
 
 	
