@@ -1,14 +1,17 @@
 package glass_fib;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
+import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
 public class Glass_fib extends Application {
@@ -24,19 +27,6 @@ public class Glass_fib extends Application {
 	public static void main(String[] args) {		
 		launch(args);
 	}
-	
-	/**
-	 * print out a JavaFX graph comparing the times for calculating a fibonacci number
-	 * recursively or iteratively
-	 * 
-	 * @param recursiveTimes - a list of nanoseconds to calculate each fibonacci number recursively
-	 * @param iterativeTimes - a list of nanoseconds to calculate each fibonacci number iteratively
-	 */
-	
-	public void printGraph(List<Long> recursiveTimes, List<Long> iterativeTimes) {
-		// TODO document why this method is empty
-	}
-	
 	
 	/**
 	 * calculate the fibonacci sequence to the number-th digit using a recursive algorithm
@@ -94,7 +84,7 @@ public class Glass_fib extends Application {
 		return recursiveTimes;
 	}
 	
-	public static List<Long> calculateIteratice() {
+	public static List<Long> calculateIterative() {
 		List<Long> iterativeTimes = new ArrayList<>();
 		
 		for (int i = 0; i <= ITERATIONS_TO_CALC; i++ ) {
@@ -114,30 +104,55 @@ public class Glass_fib extends Application {
 	 */
 	@Override
 	public void start(Stage arg0) throws Exception {
-		
-		// define graph axis
-		final NumberAxis xAxis = new NumberAxis(0, 42, 1);
-		final NumberAxis yAxis = new NumberAxis(10000, 900000000, 10000);
-		xAxis.setLabel("n-th Fibonacci number");
-		yAxis.setLabel("Time in nanoseconds");
-		
+				
 		// build the data
 		List<Long> recursiveTimes = calculateRecursive();
-		Series<Integer, Long> recursiveSeries = new XYChart.Series<>();
+		Series<Number, Number> recursiveSeries = new XYChart.Series<>();
 		recursiveSeries.setName("Recursive Fibonnaci Calculation Times");
 		for (int i = 0; i < recursiveTimes.size(); i++) {
-			recursiveSeries.getData().add(new Data<Integer, Long>(i, recursiveTimes.get(i)));
+			recursiveSeries.getData().add(new Data<>(i, recursiveTimes.get(i)));
 		}
 		
-		List<Long> iterativeTimes = calculateIteratice();
-		Series<Integer, Long> iterativeSeries = new XYChart.Series<>();
+		List<Long> iterativeTimes = calculateIterative();
+		Series<Number, Number> iterativeSeries = new XYChart.Series<>();
 		iterativeSeries.setName("Iterative Fibonnaci Calculation Times");
+		Series<Number, Number> iterativeSeriesForIterativeChart = new XYChart.Series<>();
+		iterativeSeriesForIterativeChart.setName("Iterative Fibonnaci Calculation Times");
 		for (int i = 0; i < iterativeTimes .size(); i++) {
-			iterativeSeries.getData().add(new Data<Integer, Long>(i, iterativeTimes .get(i)));
+			iterativeSeries.getData().add(new Data<>(i, iterativeTimes .get(i)));
+			iterativeSeriesForIterativeChart.getData().add(new Data<>(i, iterativeTimes .get(i)));
 		}
 		
-		// build the line graph
-		LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
-	}
+		// build the line graph that shows both results
+		// define graph axis
+		double yMax = (double) Collections.max(recursiveTimes) + 10000;
+		final NumberAxis xAxis = new NumberAxis(0, ITERATIONS_TO_CALC, 2);
+		final NumberAxis yAxis = new NumberAxis(0, yMax, 5000);
+		xAxis.setLabel("n-th Fibonacci number");
+		yAxis.setLabel("Time in nanoseconds");
 
+		LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
+		lineChart.getData().add(recursiveSeries);
+		lineChart.getData().add(iterativeSeries);
+
+		// build the line graph that shows just iterative
+		yMax = (double) Collections.max(iterativeTimes) + 100;
+		final NumberAxis iterativeXAxis = new NumberAxis(0, ITERATIONS_TO_CALC, 2);
+		final NumberAxis iterativeYAxis = new NumberAxis(0, yMax, 100);
+		iterativeXAxis.setLabel("n-th Fibonacci number");
+		iterativeYAxis.setLabel("Time in nanoseconds"); 
+		
+		LineChart<Number, Number> iterativeChart = new LineChart<>(iterativeXAxis, iterativeYAxis);
+		iterativeChart.getData().add(iterativeSeriesForIterativeChart);
+		
+		// setup scene
+		FlowPane pane = new FlowPane(lineChart, iterativeChart);
+		pane.setVgap(8);
+		pane.setHgap(4);
+		pane.setPrefWidth(1024);
+		Scene scene = new Scene(pane);
+		arg0.setScene(scene);
+		arg0.setTitle("Fibonacci Calculation Times");
+		arg0.show();
+	}
 }
