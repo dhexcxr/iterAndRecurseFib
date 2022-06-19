@@ -83,7 +83,7 @@ public class Glass_fib extends Application {
 		// using a recursive algorithm
 		List<Long> recursiveTimes = new ArrayList<>();
 		
-		for (int i = 0; i <= ITERATIONS_TO_CALC; i++ ) {
+		for (int i = 1; i <= ITERATIONS_TO_CALC; i++ ) {
 			long recursiveStartTime = System.nanoTime();
 			fibRecursive(i);
 			long recursiveEndTime = System.nanoTime();
@@ -97,7 +97,7 @@ public class Glass_fib extends Application {
 		// using an iterative algorithm
 		List<Long> iterativeTimes = new ArrayList<>();
 		
-		for (int i = 0; i <= ITERATIONS_TO_CALC; i++ ) {
+		for (int i = 1; i <= ITERATIONS_TO_CALC; i++ ) {
 			long iterativeStartTime = System.nanoTime();
 			fibIterative(i);
 			long iterativeEndTime = System.nanoTime();
@@ -122,7 +122,7 @@ public class Glass_fib extends Application {
 		Series<Number, Number> recursiveSeries = new XYChart.Series<>();
 		recursiveSeries.setName("Recursive Fibonnaci Calculation Times");
 		for (int i = 0; i < recursiveTimes.size(); i++) {
-			recursiveSeries.getData().add(new Data<>(i, recursiveTimes.get(i)));
+			recursiveSeries.getData().add(new Data<>(i + 1, recursiveTimes.get(i)));
 		}
 		
 		List<Long> iterativeTimes = calculateIterative();
@@ -131,14 +131,14 @@ public class Glass_fib extends Application {
 		Series<Number, Number> iterativeSeriesForIterativeChart = new XYChart.Series<>();
 		iterativeSeriesForIterativeChart.setName("Iterative Fibonnaci Calculation Times");
 		for (int i = 0; i < iterativeTimes .size(); i++) {
-			iterativeSeries.getData().add(new Data<>(i, iterativeTimes .get(i)));
-			iterativeSeriesForIterativeChart.getData().add(new Data<>(i, iterativeTimes .get(i)));
+			iterativeSeries.getData().add(new Data<>(i + 1, iterativeTimes .get(i)));
+			iterativeSeriesForIterativeChart.getData().add(new Data<>(i + 1, iterativeTimes .get(i)));
 		}
 		
 		// build the line graph that shows both results
 		// define graph axis
 		double yMax = (double) Collections.max(recursiveTimes) + 10000;
-		final NumberAxis xAxis = new NumberAxis(0, ITERATIONS_TO_CALC, 2);
+		final NumberAxis xAxis = new NumberAxis(0, ITERATIONS_TO_CALC + 1, 2);
 		final NumberAxis yAxis = new NumberAxis(0, yMax, 5000);
 		xAxis.setLabel("n-th Fibonacci number");
 		yAxis.setLabel("Time in nanoseconds");
@@ -149,7 +149,7 @@ public class Glass_fib extends Application {
 
 		// build the line graph that shows just iterative
 		yMax = (double) Collections.max(iterativeTimes) + 100;
-		final NumberAxis iterativeXAxis = new NumberAxis(0, ITERATIONS_TO_CALC, 2);
+		final NumberAxis iterativeXAxis = new NumberAxis(0, ITERATIONS_TO_CALC + 1, 2);
 		final NumberAxis iterativeYAxis = new NumberAxis(0, yMax, 100);
 		iterativeXAxis.setLabel("n-th Fibonacci number");
 		iterativeYAxis.setLabel("Time in nanoseconds"); 
