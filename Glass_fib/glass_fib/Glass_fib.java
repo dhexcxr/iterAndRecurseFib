@@ -12,6 +12,8 @@ import javafx.scene.chart.XYChart.Series;
 import javafx.stage.Stage;
 
 public class Glass_fib extends Application {
+	
+	static final int ITERATIONS_TO_CALC = 20;
 
 	/**
 	 * Used to setup timers and measure performance of fibonacci methods.
@@ -81,11 +83,9 @@ public class Glass_fib extends Application {
 	}
 	
 	public static List<Long> calculateRecursive() {
-		int iterationsToCalc = 42;
-		
 		List<Long> recursiveTimes = new ArrayList<>();
 		
-		for (int i = 0; i <= iterationsToCalc; i++ ) {
+		for (int i = 0; i <= ITERATIONS_TO_CALC; i++ ) {
 			long recursiveStartTime = System.nanoTime();
 			fibRecursive(i);
 			long recursiveEndTime = System.nanoTime();
@@ -95,11 +95,9 @@ public class Glass_fib extends Application {
 	}
 	
 	public static List<Long> calculateIteratice() {
-		int iterationsToCalc = 42;
-		
 		List<Long> iterativeTimes = new ArrayList<>();
 		
-		for (int i = 0; i <= iterationsToCalc; i++ ) {
+		for (int i = 0; i <= ITERATIONS_TO_CALC; i++ ) {
 			long iterativeStartTime = System.nanoTime();
 			fibIterative(i);
 			long iterativeEndTime = System.nanoTime();
